@@ -1,0 +1,53 @@
+table:
+  name: messages
+  schema: public
+object_relationships:
+  - name: chat
+    using:
+      foreign_key_constraint_on: chat_id
+insert_permissions:
+  - role: user
+    permission:
+      check:
+        chat:
+          user_id:
+            _eq: X-Hasura-User-Id
+      columns:
+        - chat_id
+        - content
+        - sender
+    comment: ""
+select_permissions:
+  - role: user
+    permission:
+      columns:
+        - chat_id
+        - content
+        - created_at
+        - id
+        - sender
+      filter:
+        chat:
+          user_id:
+            _eq: X-Hasura-User-Id
+      allow_aggregations: true
+    comment: ""
+update_permissions:
+  - role: user
+    permission:
+      columns:
+        - content
+      filter:
+        chat:
+          user_id:
+            _eq: X-Hasura-User-Id
+      check: null
+    comment: ""
+delete_permissions:
+  - role: user
+    permission:
+      filter:
+        chat:
+          user_id:
+            _eq: X-Hasura-User-Id
+    comment: ""

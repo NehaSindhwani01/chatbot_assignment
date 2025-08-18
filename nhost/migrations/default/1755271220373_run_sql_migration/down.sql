@@ -1,0 +1,23 @@
+-- Could not auto-generate a down migration.
+-- Please write an appropriate down migration for the SQL below:
+-- CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+--
+-- -- Chats table
+-- CREATE TABLE chats (
+--     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+--     user_id UUID NOT NULL,
+--     title VARCHAR(255) NOT NULL,
+--     created_at TIMESTAMP DEFAULT NOW()
+-- );
+--
+-- -- Messages table
+-- CREATE TABLE messages (
+--     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+--     chat_id UUID NOT NULL REFERENCES chats(id) ON DELETE CASCADE,
+--     sender VARCHAR(10) NOT NULL CHECK (sender IN ('user','bot')),
+--     content TEXT NOT NULL,
+--     created_at TIMESTAMP DEFAULT NOW()
+-- );
+--
+-- ALTER TABLE chats ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE messages ENABLE ROW LEVEL SECURITY;

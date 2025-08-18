@@ -1,0 +1,11 @@
+actions:
+  - name: sendMessage
+    definition:
+      kind: synchronous
+      handler: https://n8n-service-xk89.onrender.com/webhook/send-message
+custom_types:
+  enums: []
+  input_objects: []
+  objects:
+    - name: SendMessageResponse
+  scalars: []

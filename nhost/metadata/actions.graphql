@@ -1,0 +1,11 @@
+type Mutation {
+  sendMessage(
+    chat_id: uuid!
+    content: String!
+  ): SendMessageResponse!
+}
+
+type SendMessageResponse {
+  reply: String!
+}
+
