@@ -83,7 +83,7 @@ export default function SignUp({ switchToSignIn }) {
       }
       else {
         // Show alert on successful signup
-        alert("Account created successfully! Please sign in.");
+        alert("Account created successfully! Please sign in and verify your account.");
         // Optionally, switch to SignIn form automatically
         switchToSignIn();
       }
