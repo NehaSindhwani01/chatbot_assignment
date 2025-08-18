@@ -81,6 +81,12 @@ export default function SignUp({ switchToSignIn }) {
       if (res.error) {
         console.error("Sign up error:", res.error);
       }
+      else {
+        // Show alert on successful signup
+        alert("Account created successfully! Please sign in.");
+        // Optionally, switch to SignIn form automatically
+        switchToSignIn();
+      }
     } catch (error) {
       console.error("Sign up failed:", error);
     }
@@ -201,3 +207,5 @@ export default function SignUp({ switchToSignIn }) {
     </div>
   );
 }
+
+
