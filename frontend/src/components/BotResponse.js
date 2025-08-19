@@ -185,8 +185,9 @@ export default function useBotResponse() {
       // 1. Call the webhook with enhanced logging
       console.log(`[${requestId}] [1/3] Initiating webhook call...`);
       const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 20000);
-
+      // const timeout = setTimeout(() => controller.abort(), 20000);
+      const timeout = setTimeout(() => controller.abort(), 20000);   
+      
       const requestBody = JSON.stringify({
         chat_id: chatId,
         user_id: userId,
