@@ -108,6 +108,8 @@
 
 import { useState } from "react";
 import { useSignInEmailPassword } from "@nhost/react";
+import { useNhostClient } from "@nhost/react";
+
 
 export default function SignIn({ switchToSignUp }) {
   const { signInEmailPassword, isLoading } = useSignInEmailPassword();
@@ -115,6 +117,11 @@ export default function SignIn({ switchToSignUp }) {
   const [password, setPassword] = useState("");
   const [verificationNeeded, setVerificationNeeded] = useState(false);
   const [error, setError] = useState(null);
+  const nhost = useNhostClient();
+  const [resetMessage, setResetMessage] = useState("");
+  const [resetError, setResetError] = useState("");
+
+ 
 
   const handleSignIn = async (e) => {
     e.preventDefault();
@@ -139,6 +146,25 @@ export default function SignIn({ switchToSignUp }) {
       setError({ message: "An unexpected error occurred" });
     }
   };
+
+  const handleForgotPassword = async () => {
+    setResetMessage("");
+    setResetError("");
+
+    if (!email) {
+      setResetError("Please enter your email first");
+      return;
+    }
+
+    const { error } = await nhost.auth.resetPassword({ email });
+
+    if (error) {
+      setResetError(error.message);
+    } else {
+      setResetMessage("Password reset email sent! Check your inbox.");
+    }
+  };
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-500 via-indigo-500 to-blue-500 p-4 animate-gradient">
@@ -212,6 +238,27 @@ export default function SignIn({ switchToSignUp }) {
                       className="w-full px-4 py-3 rounded-xl bg-white bg-opacity-10 border border-white border-opacity-20 text-white placeholder-white placeholder-opacity-50 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 transition-all"
                       placeholder="••••••••"
                     />
+
+
+                      <div className="flex justify-end text-sm mt-1">
+                        <button
+                          type="button"
+                          onClick={handleForgotPassword}
+                          className="text-indigo-200 hover:text-white underline focus:outline-none"
+                        >
+                          Forgot password?
+                        </button>
+                      </div>
+
+                      {resetMessage && (
+                        <p className="text-green-400 text-sm mt-2">{resetMessage}</p>
+                      )}
+                      {resetError && (
+                        <p className="text-red-400 text-sm mt-2">{resetError}</p>
+                      )}
+
+
+                    
                   </div>
 
                   {error && (
